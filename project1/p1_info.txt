@@ -1,0 +1,60 @@
+IAM 
+
+AKIAJ425TLEITI6R7ZCA
+O6VoBNroY+/Vt4SHeyztZ29Z/HJenUypXXr+EAQd
+
+Download key pairs and save it  
+Connect to your instance  :: it has all steps mentioned
+
+http://stackoverflow.com/questions/4149/how-do-i-use-java-to-read-from-a-file-that-is-actively-being-written
+
+https://www.r-bloggers.com/shell-scripting-ec2-for-fun-and-profit/	
+
+
+The command ec2-run-instances has two additional arguments that can be used when running the command. The user-data command and user-data-file both of these perform the same task just they read from different input. When you use this argument the contents of the user-data will be uploaded to a amazon hosted URI http://169.254.169.254/1.0/user-data only available to the instance that was launched.
+
+The normal way to do this in the linux environment would be to upload a shell script to the instance to download the exe, your user-data-file might look something like this...
+
+http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/Welcome.html
+
+http://stackoverflow.com/questions/525212/how-to-run-unix-shell-script-from-java-code
+http://stackoverflow.com/questions/30622160/running-a-shell-script-from-java-code
+--> get the request and execute .sh for launching and connect to an instance 
+
+
+
+Running a C File in EC2  :: https://biogeeks.files.wordpress.com/2009/10/cloud_guide.pdf
+AWESOME STUFF
+
+Host the webserver -> get i/p x   ->don't know how? -- read this input into java prg -> launch instance and run c code (user data)
+-> store the result ?   repeat
+
+Executing remote command using putty
+plink -ssh -i "F:\ASU\546_CLoud\aws_tutorial.ppk"  ec2-user@ec2-52-37-164-95.us-west-2.compute.amazonaws.com ls -l
+"putty.exe -ssh -i \"F:\\ASU\\546_CLoud\\aws_tutorial.ppk\" ec2-user@"+dnsname+" 22
+
+
+scp –i "F:\ASU\546_CLoud\aws_tutorial.ppk" hello.c ec2-user@ec2-52-37-164-95.us-west-2.compute.amazonaws.com:/root
+
+
+AWS_ACCESS_KEY_ID=AKIAJ425TLEITI6R7ZCA AWS_SECRET_ACCESS_KEY=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
+
+aws ec2 run-instances --image-id ami-14a92574 --count 1 --instance-type t2.micro --key-name aws_tutorial --user-data file://my_script.txt --security-group-ids sg-1cb2c664
+
+
+
+javac -cp 
+
+user-data for java tier=================================================
+#!/bin/bash
+cd /home/ec2-user/
+export CLASSPATH="/home/ec2-user/aws-java-sdk-1.11.104/lib/aws-java-sdk-1.11.104.jar:/home/ec2-user/aws-java-sdk-1.11.104/third-party/lib/*:/home/ec2-user/commons-codec-1.9.jar:${CLASSPATH}" 
+javac ec2commands.java
+java  ec2commands
+
+
+
+
+php web     ami-49a72929
+java 		ami-49a72929
+pifft c     ami-49a72929
