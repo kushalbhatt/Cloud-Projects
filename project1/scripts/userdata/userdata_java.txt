@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/ec2-user/
+export CLASSPATH="/home/ec2-user/aws-java-sdk-1.11.104/lib/aws-java-sdk-1.11.104.jar:/home/ec2-user/aws-java-sdk-1.11.104/third-party/lib/*:/home/ec2-user/commons-codec-1.9.jar:${CLASSPATH}" 
+javac ec2commands.java
+java  ec2commands
