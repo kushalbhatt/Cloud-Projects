@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kushal.gcmdemoapp.MainActivity">
+
+    <TextView
+        android:id="@+id/hello_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/hello_text"
+        android:text="What's my Location?"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="279dp"
+        android:onClick="getLocation"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/hello_text"
+        android:layout_marginBottom="20dp"
+        android:text="Locate it on Map?"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="363dp"
+        android:onClick="openMaps"/>
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        app:layout_constraintTop_toBottomOf="@id/button3"
+        android:inputType="text"
+        android:text=""
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="360dp" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        tools:layout_editor_absoluteX="70dp"
+        android:text="Send Broadcast!"
+        android:onClick="broadcast"/>
+
+
+</android.support.constraint.ConstraintLayout>

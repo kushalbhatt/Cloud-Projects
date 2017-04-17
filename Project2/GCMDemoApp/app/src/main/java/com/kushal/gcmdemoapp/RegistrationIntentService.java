@@ -1,0 +1,69 @@
+package com.kushal.gcmdemoapp;
+
+import android.app.IntentService;
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.kushal.myapplication.backend.registration.Registration;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+
+import java.io.IOException;
+
+/**
+ * Created by KUSHAL on 03-Apr-17.
+ */
+
+public class RegistrationIntentService extends IntentService {
+
+    static String TAG = "RegIntentService";
+    public RegistrationIntentService()
+    {
+        super("RegIntentService");
+    }
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        Log.d("TAG","------------------On Handleintent---");
+        try {
+            String senderid = "913755038494" ;
+            InstanceID instanceID = InstanceID.getInstance(this);
+            String token = instanceID.getToken(senderid,
+                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            // [END get_token]
+            Log.i(TAG, "GCM Registration Token: " + token);
+
+            // TODO: Implement this method to send any registration to your app's servers.
+            sendRegistrationToServer(token);
+        }
+        catch(Exception e)
+        {
+            Log.e(TAG,"Exception Occured: ",e);
+        }
+
+    }
+
+    private void sendRegistrationToServer(String token) throws IOException {
+        Registration.Builder builder = new Registration.Builder(AndroidHttp.newCompatibleTransport(),
+                new AndroidJsonFactory(), null)
+                // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
+                // otherwise they can be skipped
+                .setRootUrl(MainActivity.BACKEND_URL)
+                .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                    @Override
+                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
+                            throws IOException {
+                        abstractGoogleClientRequest.setDisableGZipContent(true);
+                    }
+                });
+        Registration regService = builder.build();
+        regService.register(token).execute();
+        Log.d("KUSHAL","======Registered!");
+        //Toast.makeText(getApplicationContext(),"Registred App!",Toast.LENGTH_LONG);
+    }
+}

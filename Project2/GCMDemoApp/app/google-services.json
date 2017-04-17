@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "913755038494",
+    "firebase_url": "https://gcmdemoapp-63192.firebaseio.com",
+    "project_id": "gcmdemoapp-63192",
+    "storage_bucket": "gcmdemoapp-63192.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913755038494:android:ec0927896d0040a6",
+        "android_client_info": {
+          "package_name": "com.kushal.gcmdemoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913755038494-jcigiric05d5t5ncii4voinev5m8b6ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDU88ag7jvWrfKc_rPpDfTeja_VYWxeuI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
