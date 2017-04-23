@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/Dhj1bkQVSxexLcYb1U9_V7RQFDo\"",
+ "etag": "\"RnkXbyw9us4_w3H-FU6An0C4oYs/6Au9IgaJczIIYhrlou2rLtjCaRg\"",
  "discoveryVersion": "v1",
  "id": "messaging:v1",
  "name": "messaging",
@@ -13,10 +13,10 @@
   "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "protocol": "rest",
- "baseUrl": "https://myApplicationId.appspot.com/_ah/api/messaging/v1/sendMessage/",
- "basePath": "/_ah/api/messaging/v1/sendMessage/",
- "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
- "servicePath": "messaging/v1/sendMessage/",
+ "baseUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/messaging/v1/",
+ "basePath": "/_ah/api/messaging/v1/",
+ "rootUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/",
+ "servicePath": "messaging/v1/",
  "batchPath": "batch",
  "parameters": {
   "alt": {
@@ -72,35 +72,43 @@
    }
   }
  },
+ "schemas": {
+  "MessageData": {
+   "id": "MessageData",
+   "type": "object",
+   "properties": {
+    "hotness": {
+     "type": "string"
+    },
+    "latitude": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "payload": {
+     "type": "string"
+    },
+    "stuff": {
+     "type": "string"
+    }
+   }
+  }
+ },
  "resources": {
   "messagingEndpoint": {
    "methods": {
     "sendMessage": {
      "id": "messaging.messagingEndpoint.sendMessage",
-     "path": "{payload}/{lat}/{lng}",
+     "path": "sendMessage",
      "httpMethod": "POST",
-     "parameters": {
-      "lat": {
-       "type": "string",
-       "required": true,
-       "location": "path"
-      },
-      "lng": {
-       "type": "string",
-       "required": true,
-       "location": "path"
-      },
-      "payload": {
-       "type": "string",
-       "required": true,
-       "location": "path"
-      }
+     "request": {
+      "$ref": "MessageData",
+      "parameterName": "resource"
      },
-     "parameterOrder": [
-      "payload",
-      "lat",
-      "lng"
-     ],
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"
      ]

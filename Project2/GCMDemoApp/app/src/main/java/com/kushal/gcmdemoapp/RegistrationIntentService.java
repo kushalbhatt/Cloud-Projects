@@ -1,7 +1,9 @@
 package com.kushal.gcmdemoapp;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,6 +42,14 @@ public class RegistrationIntentService extends IntentService {
 
             // TODO: Implement this method to send any registration to your app's servers.
             sendRegistrationToServer(token);
+
+            //Update SharedPreferences:
+            SharedPreferences settings = getSharedPreferences(getString(R.string.SETTINGS),Context.MODE_PRIVATE);
+            boolean is_registered =  settings.getBoolean(getString(R.string.IS_REGISTERED),false);
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putBoolean(getString(R.string.IS_REGISTERED), true);
+            edit.apply();
+
         }
         catch(Exception e)
         {
@@ -53,14 +63,14 @@ public class RegistrationIntentService extends IntentService {
                 new AndroidJsonFactory(), null)
                 // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
                 // otherwise they can be skipped
-                .setRootUrl(MainActivity.BACKEND_URL)
-                .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                .setRootUrl(getString(R.string.BACKEND_URL));
+                /*.setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                     @Override
                     public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
                             throws IOException {
                         abstractGoogleClientRequest.setDisableGZipContent(true);
                     }
-                });
+                });*/
         Registration regService = builder.build();
         regService.register(token).execute();
         Log.d("KUSHAL","======Registered!");

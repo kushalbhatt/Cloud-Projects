@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/u4IoLkrmkS2z_R3vCqC7CRsJqEU\"",
+ "etag": "\"RnkXbyw9us4_w3H-FU6An0C4oYs/hP1MxCThdSoXn0vpj-aDXEJuSsE\"",
  "discoveryVersion": "v1",
  "id": "registration:v1",
  "name": "registration",
@@ -13,9 +13,9 @@
   "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "protocol": "rest",
- "baseUrl": "https://myApplicationId.appspot.com/_ah/api/registration/v1/",
+ "baseUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/registration/v1/",
  "basePath": "/_ah/api/registration/v1/",
- "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
+ "rootUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/",
  "servicePath": "registration/v1/",
  "batchPath": "batch",
  "parameters": {

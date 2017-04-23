@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">GCMDemoApp</string>
+    <string name="app_name">Free-Cast</string>
+    <string name="BACKEND_URL">https://gcmdemoapp-63192.appspot.com/_ah/api/</string>
+    <string name="IS_REGISTERED">is_registered</string>
+    <string name="SETTINGS">settings</string>
+    <string name="dialog_message">The app needs access to your location. Please allow permission and relaunch.</string>
+    <string name="dialog_title">Oops! Permission Denied!</string>
+    <string name="ok">Got it!</string>
 </resources>

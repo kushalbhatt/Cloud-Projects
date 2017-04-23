@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kushal.gcmdemoapp.DisplayMessage">
+    tools:context="com.kushal.gcmdemoapp.DisplayMessage"
+    android:background="@color/wallet_dim_foreground_disabled_holo_dark">
 
     <TextView
         android:id="@+id/msgtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textSize="15dp"
+        android:textColor="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="218dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,13 +22,15 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View on maps . . ."
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="291dp"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/maps"
         app:layout_constraintTop_toBottomOf="@id/msgtext"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteX="172dp"
         android:onClick="showinMaps"/>
 </android.support.constraint.ConstraintLayout>
