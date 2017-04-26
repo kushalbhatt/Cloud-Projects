@@ -25,7 +25,7 @@ public class DisplayMessage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.display_message_activity);
         locationService = new LocationAPI(this);
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
@@ -34,7 +34,7 @@ public class DisplayMessage extends AppCompatActivity {
         latitude= bundle.getString("latitude");
         longitude= bundle.getString("longitude");
         new GetDistanceTask().execute(new String[]{latitude,longitude});
-        msg = (TextView)findViewById(R.id.msgtext);
+        msg = (TextView)findViewById(R.id.extra_message);
         msg.setText(m);
     }
 
