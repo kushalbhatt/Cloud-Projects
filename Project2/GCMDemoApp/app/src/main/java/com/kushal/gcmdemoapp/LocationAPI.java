@@ -28,7 +28,7 @@ public class LocationAPI extends AppCompatActivity implements GoogleApiClient.Co
 
     private static final int REQUEST_CODE_ASK_PERMISSIONS = 111;
     public static Location mLastLocation = null;
-    private static GoogleApiClient mGoogleApiClient = null;
+    private GoogleApiClient mGoogleApiClient = null;
     private static Context context = null;
     private static final int LOCATION_PERMISSION = 111;
     LocationRequest mLocationRequest;
@@ -122,7 +122,8 @@ public class LocationAPI extends AppCompatActivity implements GoogleApiClient.Co
 
     @Override
     public void onLocationChanged(Location location) {
-        mLastLocation = location;
+        if(location != null)
+            mLastLocation = location;
     }
 
     @Override

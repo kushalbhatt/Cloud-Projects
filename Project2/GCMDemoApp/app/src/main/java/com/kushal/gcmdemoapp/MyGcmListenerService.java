@@ -37,24 +37,25 @@ public class MyGcmListenerService extends GcmListenerService {
         String message = data.getString("message");
         String lat = data.getString("latitude");
         String lng = data.getString("longitude");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "Message: " + message+"Latitude : "+lat+"\tLong: "+lng);
+        //Log.d(TAG, "From: " + from);
+        //Log.d(TAG, "Message: " + message+"Latitude : "+lat+"\tLong: "+lng);
 
         if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
             // normal downstream message.
         }
-
-        //show notification to user
-        //sendNotification(data);
         sendCustomNotification(data);
+
+        //insert this event into Database
+        DBHelper database = new DBHelper(this);
+        database.insertdata(message,lat,lng,data.getString("hotness"),data.getString("stuff"));
     }
 
     void sendNotification(Bundle data)
     {
         Intent intent = new Intent(this, DisplayMessage.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle bundle = data;
         intent.putExtras(bundle);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -84,6 +85,7 @@ public class MyGcmListenerService extends GcmListenerService {
         String longitude = data.getString("longitude");
         String message = data.getString("message");
         String stuff = data.getString("stuff");
+        int hotness = Integer.parseInt(data.getString("hotness"));
         // Title  could be " Free  <category> available @"
         //remoteViews.setTextViewText(R.id.title,bundle.getString(""));
         remoteViews.setTextViewText(R.id.text,message);
@@ -91,7 +93,8 @@ public class MyGcmListenerService extends GcmListenerService {
         //Big View   we need to set category and other info as well
         RemoteViews bigView = new RemoteViews(getPackageName(),
                 R.layout.big_notification);
-        remoteViews.setTextViewText(R.id.big_text,message);
+        bigView.setTextViewText(R.id.big_title,"Free "+stuff+" Available!");
+        bigView.setTextViewText(R.id.big_text,message);
 
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + latitude + "," + longitude + "(Event Location)");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -102,6 +105,13 @@ public class MyGcmListenerService extends GcmListenerService {
 
         remoteViews.setOnClickPendingIntent(R.id.notification_button,button_intent);
         bigView.setOnClickPendingIntent(R.id.big_button,button_intent);
+
+        if(hotness > 7)
+            bigView.setTextViewText(R.id.big_hot,"It's getting Hot. Grab soon.");
+        else if(hotness > 4)
+            bigView.setTextViewText(R.id.big_hot,"Moderate!");
+        else
+            bigView.setTextViewText(R.id.big_hot,"Not so hot!");
 
         // Open NotificationView Class on Notification Click
         Intent intent = new Intent(this, DisplayMessage.class);
@@ -127,6 +137,6 @@ public class MyGcmListenerService extends GcmListenerService {
         int m = random.nextInt(9999);
         // Build Notification with Notification Manager
         notificationmanager.notify(m, builder.build());
-        Log.d(TAG,"Custom Notification SHown!");
+        //Log.d(TAG,"Custom Notification SHown!");
     }
 }

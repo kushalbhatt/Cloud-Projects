@@ -104,10 +104,13 @@
 
         <Spinner
             android:id="@+id/eventLocation"
-            android:textSize="@dimen/text_size"
-            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.Spinner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/location"/>
+            android:entries="@array/location"
+            android:spinnerMode="dropdown"
+            android:textSize="@dimen/text_size" />
+
         <EditText
             android:id="@+id/customMessage"
             android:layout_width="fill_parent"
@@ -116,7 +119,8 @@
             android:typeface="serif"
             android:textStyle="italic"
             android:hint="Enter Custom message not greater than 140 char"
-            android:maxLength="140"/>
+            android:maxLength="140"
+            />
 
         <Button
             android:id="@+id/buttonSend"
@@ -124,7 +128,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size"
             android:textStyle="italic"
-            android:text="Free-Cast-It"
+            android:text="Free-Cast-It!"
             android:onClick="free_cast_it"/>
 
     </LinearLayout>

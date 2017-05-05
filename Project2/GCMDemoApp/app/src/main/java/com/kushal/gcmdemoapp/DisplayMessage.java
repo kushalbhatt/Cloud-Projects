@@ -1,13 +1,18 @@
 package com.kushal.gcmdemoapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -19,6 +24,10 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class DisplayMessage extends AppCompatActivity {
     TextView msg ;
+    TextView distance_estimate;
+    TextView location;
+    SeekBar seek ;
+    int hotness = 0;
     String latitude;
     String longitude;
     LocationAPI locationService;
@@ -26,22 +35,49 @@ public class DisplayMessage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_message_activity);
+        distance_estimate = (TextView)findViewById(R.id.estimatedDistance);
+        location = (TextView)findViewById(R.id.location_details);
         locationService = new LocationAPI(this);
+
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
-        String m = bundle.getString("message");
-        m+= bundle.getString("hotness") +"   "+bundle.getString("stuff");
+
+        String m = "Free "+bundle.getString("stuff")+" is available!\n ";
+        ((TextView)findViewById(R.id.titletext)).setText(m);
+        //((TextView)findViewById(R.id.titletext)).setText(bundle.getString("message"));
+        hotness = Integer.parseInt(bundle.getString("hotness"));
+        Log.d("KUSHAL","hotness = "+hotness);
+        seek = (SeekBar)findViewById(R.id.hotness_bar);
+
         latitude= bundle.getString("latitude");
         longitude= bundle.getString("longitude");
-        new GetDistanceTask().execute(new String[]{latitude,longitude});
+
         msg = (TextView)findViewById(R.id.extra_message);
-        msg.setText(m);
+        msg.setText(bundle.getString("message"));
     }
 
     protected void onStart() {
         if(!locationService.isConnected())
             locationService.connect();
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        seek.setProgress(hotness);
+        //requires an internet connection
+        if(isNetworkAvailable())
+            new GetDistanceTask().execute(new String[]{latitude,longitude});
+        else
+            Toast.makeText(this,"Couldn't load distance and address! Requires internet connection",Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     protected void onStop() {
@@ -61,12 +97,17 @@ public class DisplayMessage extends AppCompatActivity {
 
     private class GetDistanceTask extends AsyncTask<String, Void, String[]>
     {
+
         @Override
         protected String[] doInBackground(String... location) {
             HttpsURLConnection urlConnection = null;
             try {
-                    Double lat = LocationAPI.mLastLocation.getLatitude();
-                    Double lng = LocationAPI.mLastLocation.getLongitude();
+                 double lat = 0,lng=0;
+                if(LocationAPI.mLastLocation != null){
+                    lat = LocationAPI.mLastLocation.getLatitude();
+                    lng = LocationAPI.mLastLocation.getLongitude();
+                    }
+
                     URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=" + lat + "," + lng + "&destinations=" + location[0] + "," + location[1]);
                     urlConnection = (HttpsURLConnection) url.openConnection();
                     //InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -87,7 +128,7 @@ public class DisplayMessage extends AppCompatActivity {
                     JSONObject element = json.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0); //.getJSONObject("distance");
                     String distance = element.getJSONObject("distance").getString("text");
                     String duration = element.getJSONObject("duration").getString("text");
-                    Log.d("KUSHAL", "-----****Destination = " + dest + "Distance output: " + distance + " ~Time: " + duration);
+                    //Log.d("KUSHAL", "-----****Destination = " + dest + "Distance output: " + distance + " ~Time: " + duration);
 
                 String[] results = new String[3];
                     results[0] = distance;
@@ -98,7 +139,8 @@ public class DisplayMessage extends AppCompatActivity {
                 e.printStackTrace();
                 Log.e("KUSHAL", "Exception while fetching distance");
             } finally {
-                urlConnection.disconnect();
+                if(urlConnection!=null)
+                    urlConnection.disconnect();
             }
             return null;
         }
@@ -106,9 +148,17 @@ public class DisplayMessage extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] results) {
             //use this results to change the values of text fields
-            String text = msg.getText().toString();
-            text+= results[0]+"        "+results[1]+"       "+results[2];
-            msg.setText(text);
+            if(LocationAPI.mLastLocation==null)
+            {
+                location.setText("Error while fetching current location!");
+                distance_estimate.setText("N/A");
+            }
+            else {
+                location.setText("Near... " + results[2]);
+                String text = "Approx. Distance:\n\t " + results[0];
+                text += "\nApprox Time: \n\t" + results[1];
+                distance_estimate.setText(text);
+            }
         }
     }
 }

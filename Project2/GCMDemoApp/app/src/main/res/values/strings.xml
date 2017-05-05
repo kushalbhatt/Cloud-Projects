@@ -31,5 +31,6 @@
     <string name="Hayden_Lawn">33.419321,-111.935368</string>
     <string name="College_Ave_Commons">33.423573,-111.935197</string>
     <string name="Sundevils_Stadium">33.426456,-111.932254</string>
+    <string name="title_activity_events_display">EventsDisplayActivity</string>
 
 </resources>
