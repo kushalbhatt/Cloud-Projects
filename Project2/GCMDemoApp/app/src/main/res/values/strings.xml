@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">GCMDemoApp</string>
+    <string name="app_name">Free-Cast</string>
+    <string name="BACKEND_URL">https://gcmdemoapp-63192.appspot.com/_ah/api/</string>
+    <string name="IS_REGISTERED">is_registered</string>
+    <string name="SETTINGS">settings</string>
+    <string name="dialog_message">The app needs access to your location. Please allow permission and relaunch.</string>
+    <string name="dialog_title">Oops! Permission Denied!</string>
+    <string name="ok">Got it!</string>
+
+    <string-array name="location">
+        <item>Current Location</item>
+        <item>Memorial Union North</item>
+        <item>Memorial Union 2nd Floor </item>
+        <item>Hayden Lawn</item>
+        <item>College Ave Commons</item>
+        <item>Sundevils Stadium</item>
+
+    </string-array>
+
+    <string-array name="foodtype">
+        <item>Select Food Item..</item>
+        <item>Pizza</item>
+        <item>IceCream</item>
+        <item>Beverages </item>
+        <item>Cookies or Candies</item>
+        <item>PopCorn</item>
+    </string-array>
+
+    <string name="Memorial_Union_North">33.417870,-111.934376</string>
+    <string name="Memorial_Union_2nd_Floor">33.417870,-111.934376</string>
+    <string name="Hayden_Lawn">33.419321,-111.935368</string>
+    <string name="College_Ave_Commons">33.423573,-111.935197</string>
+    <string name="Sundevils_Stadium">33.426456,-111.932254</string>
+    <string name="title_activity_events_display">EventsDisplayActivity</string>
+
 </resources>

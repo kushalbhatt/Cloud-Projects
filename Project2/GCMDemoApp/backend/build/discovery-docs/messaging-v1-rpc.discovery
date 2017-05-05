@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ODRTh3xaRR64wpeXJSlF33HMN-0/Dhj1bkQVSxexLcYb1U9_V7RQFDo\"",
+ "etag": "\"RnkXbyw9us4_w3H-FU6An0C4oYs/6Au9IgaJczIIYhrlou2rLtjCaRg\"",
  "discoveryVersion": "v1",
  "id": "messaging:v1",
  "name": "messaging",
@@ -13,8 +13,8 @@
   "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
  },
  "protocol": "rpc",
- "rootUrl": "https://myApplicationId.appspot.com/_ah/api/",
- "rpcUrl": "https://myApplicationId.appspot.com/_ah/api/rpc",
+ "rootUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/",
+ "rpcUrl": "https://gcmdemoapp-63192.appspot.com/_ah/api/rpc",
  "rpcPath": "/_ah/api/rpc",
  "parameters": {
   "alt": {
@@ -70,27 +70,42 @@
    }
   }
  },
+ "schemas": {
+  "MessageData": {
+   "id": "MessageData",
+   "type": "object",
+   "properties": {
+    "hotness": {
+     "type": "string"
+    },
+    "latitude": {
+     "type": "string"
+    },
+    "longitude": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "payload": {
+     "type": "string"
+    },
+    "stuff": {
+     "type": "string"
+    }
+   }
+  }
+ },
  "methods": {
   "messaging.messagingEndpoint.sendMessage": {
    "id": "messaging.messagingEndpoint.sendMessage",
    "parameters": {
-    "lat": {
-     "type": "string",
-     "required": true
-    },
-    "lng": {
-     "type": "string",
-     "required": true
-    },
-    "payload": {
-     "type": "string",
-     "required": true
+    "resource": {
+     "$ref": "MessageData"
     }
    },
    "parameterOrder": [
-    "payload",
-    "lat",
-    "lng"
+    "resource"
    ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

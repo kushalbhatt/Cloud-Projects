@@ -12,6 +12,8 @@ import com.google.android.gcm.server.Result;
 import com.google.android.gcm.server.Sender;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonCreator;
+import com.google.appengine.repackaged.org.codehaus.jackson.annotate.JsonProperty;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,11 +53,11 @@ public class MessagingEndpoint {
     /**
      * Send to the first 10 devices (You can modify this to send to any number of devices or a specific device)
      *
-     * @param payload,latitude,Longitude
+     * @param payload
      */
-    public void sendMessage(@Named("payload") String payload, @Named("lat") String lat, @Named("lng") String lng) throws IOException {
-
-        if (payload == null || lat == null) {
+    //public void sendMessage(@Named("payload") String payload, @Named("lat") String lat, @Named("lng") String lng) throws IOException {
+    public void sendMessage(MessageData payload) throws IOException{
+        if (payload == null) {
             log.warning("Not sending message because it is empty");
             return;
         }
@@ -66,13 +68,14 @@ public class MessagingEndpoint {
 
         Sender sender = new Sender(API_KEY);
         Message.Builder builder = new Message.Builder();
-        builder.addData("message",payload);
-        builder.addData("latitude",lat);
-        builder.addData("longitude",lng);
-        //builder.addData("latitude", (String) payload.get("latitude"));
-        //builder.addData("longitude", (String)payload.get("longitude"));
+        builder.addData("message",payload.getMessage());
+        builder.addData("latitude",payload.getLatitude());
+        builder.addData("longitude",payload.getLongitude());
+        builder.addData("hotness", payload.getHotness());
+        builder.addData("stuff", payload.getStuff());
+
         Message msg = builder.build();
-        List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).limit(10).list();
+        List<RegistrationRecord> records = ofy().load().type(RegistrationRecord.class).list();
         for (RegistrationRecord record : records) {
             Result result = sender.send(msg, record.getRegId(), 5);
             if (result.getMessageId() != null) {
@@ -96,5 +99,4 @@ public class MessagingEndpoint {
             }
         }
     }
-
 }

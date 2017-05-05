@@ -4,57 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/app_background"
     tools:context="com.kushal.gcmdemoapp.MainActivity">
 
-    <TextView
-        android:id="@+id/hello_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <LinearLayout
+        android:layout_width="344dp"
+        android:layout_height="495dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/hello_text"
-        android:text="What's my Location?"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="279dp"
-        android:onClick="getLocation"/>
+        <RadioGroup
+            android:id="@+id/RGroup"
+            style="@style/Base.Animation.AppCompat.Dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme">
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/hello_text"
-        android:layout_marginBottom="20dp"
-        android:text="Locate it on Map?"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="363dp"
-        android:onClick="openMaps"/>
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        app:layout_constraintTop_toBottomOf="@id/button3"
-        android:inputType="text"
-        android:text=""
-        tools:layout_editor_absoluteX="59dp"
-        tools:layout_editor_absoluteY="360dp" />
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editText"
-        tools:layout_editor_absoluteX="70dp"
-        android:text="Send Broadcast!"
-        android:onClick="broadcast"/>
+            <RadioButton
+                android:id="@+id/tshirt"
+                android:textSize="@dimen/text_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="T-Shirt" />
 
+            <RadioButton
+                android:id="@+id/freefood"
+                android:textSize="@dimen/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Free-Food" />
 
+            <Spinner
+                android:id="@+id/foodType"
+                android:textSize="@dimen/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/foodtype" />
+
+            <RadioButton
+                android:id="@+id/swag"
+                android:textSize="@dimen/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swag" />
+
+            <RadioButton
+                android:id="@+id/other"
+                android:textSize="@dimen/text_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other" />
+
+            <EditText
+                android:id="@+id/otherText"
+                android:textSize="@dimen/text_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="If other enter here"
+                android:inputType="textPersonName" />
+        </RadioGroup>
+        <TextView
+            android:id="@+id/hotrat"
+            android:textColor="@android:color/holo_red_light"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:text="Hotness Rating"
+            android:textAlignment="center" />
+
+        <SeekBar
+            android:id="@+id/hotBar"
+            style="@android:style/Widget.SeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:progress="5"
+            android:scrollbarStyle="insideInset"
+            android:theme="@android:style/Widget.SeekBar" />
+
+        <TextView
+            android:id="@+id/location"
+            android:textSize="@dimen/text_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOCATION"
+            android:textAlignment="center" />
+
+        <Spinner
+            android:id="@+id/eventLocation"
+            style="@style/Widget.AppCompat.Spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/location"
+            android:spinnerMode="dropdown"
+            android:textSize="@dimen/text_size" />
+
+        <EditText
+            android:id="@+id/customMessage"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:textSize="@dimen/text_size"
+            android:typeface="serif"
+            android:textStyle="italic"
+            android:hint="Enter Custom message not greater than 140 char"
+            android:maxLength="140"
+            />
+
+        <Button
+            android:id="@+id/buttonSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textStyle="italic"
+            android:text="Free-Cast-It!"
+            android:onClick="free_cast_it"/>
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
